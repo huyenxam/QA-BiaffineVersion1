@@ -41,11 +41,11 @@ class InputSample(object):
                     char_seq.append(character)
                 sample['char_sequence'] = char_seq
 
-                label = sample['label']
+                labels = sample['label']
                 label_idxs = []
 
                 se = ['cls'] + question + ['sep'] +  context
-                for lb in label:
+                for lb in labels:
                     ans_start = int(lb[1]) + len(question) + 2
                     ans_end = int(lb[2]) + len(question) + 2
                     entity = lb[0]
@@ -58,7 +58,7 @@ class InputSample(object):
                 l_sample.append(sample)
             else:                                                   # Nếu độ dài context lớn hơn max_seq
                 idx = 0
-                labels = self.list_sample[i]['label']
+                labels = sample['label']
                 while(len(context) > max_seq):                      # Cắt câu sử dụng sliding window cho đến khi len(context) < max_sep
                     label_idxs = []
                     ctx = context[:max_seq]
